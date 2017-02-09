@@ -115,6 +115,18 @@ Adapters should generate their own private key and get the CSR signed by a trust
 ### Logging 
 This image does not use the standard Docker logging mechanism, but the native OS-based logging.
 
+If you like, you can add the following commands in the file "httpd-foreground" in order to build an image that logs SimpleSAMLphp info to syslog and that you can check with `docker logs -f <image-name>`:
+
+```
+SAML_FOLDER=/var/simplesamlphp
+SAML_LOG_FILE=${SAML_FOLDER}/log/simplesamlphp.log
+
+touch ${SAML_LOG_FILE}
+chown apache:apache ${SAML_LOG_FILE}
+chmod a+rw /dev/console
+ln -sf /dev/console ${SAML_LOG_FILE}
+```
+
 ## Building from source:
  
 ```
