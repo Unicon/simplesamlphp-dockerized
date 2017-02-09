@@ -119,7 +119,11 @@ If you like, you can add the following commands in the file "httpd-foreground" i
 
 ```
 SAML_FOLDER=/var/simplesamlphp
+FULL_CONFIG_PATH=${SAML_FOLDER}/config/config.php
 SAML_LOG_FILE=${SAML_FOLDER}/log/simplesamlphp.log
+
+sed -i "s/'syslog',/'file',/g" ${FULL_CONFIG_PATH}
+sed -i "s#;error_log = syslog#error_log = /dev/console#g" ${FULL_CONFIG_PATH}
 
 touch ${SAML_LOG_FILE}
 chown apache:apache ${SAML_LOG_FILE}
