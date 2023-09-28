@@ -4,4 +4,12 @@ set -e
 # Apache gets grumpy about PID files pre-existing
 rm -f /usr/local/apache2/logs/httpd.pid /run/httpd/httpd.pid
 
+# start fpm
+if [ ! -d "/run/php-fpm" ]
+then
+  mkdir /run/php-fpm
+fi
+
+php-fpm -D
+
 exec httpd -DFOREGROUND
