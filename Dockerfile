@@ -33,13 +33,6 @@ RUN dnf module enable -y php:7.4 \
     && dnf clean all \
     && rm -rf /var/cache/yum
 
-
-#RUN echo $'\nSetEnv SIMPLESAMLPHP_CONFIG_DIR /var/simplesamlphp/config\nAlias /simplesaml /var/simplesamlphp/www\n \
-#<Directory /var/simplesamlphp/www>\n \
-#    Require all granted\n \
-#</Directory>\n' \
-#       >> /etc/httpd/conf/httpd.conf
-
 RUN sed -i 's/php_admin_value\[error_log\]/;php_admin_value\[error_log\]/g' /etc/php-fpm.d/www.conf
 RUN sed -i '/^php_/s/php_/;php_/g' /etc/php-fpm.d/www.conf
 RUN set -eux; \
